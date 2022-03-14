@@ -39,7 +39,6 @@ class Post
         $this->comments = new ArrayCollection();
     }
 
-   
 
     public function getId(): ?int
     {
