@@ -17,4 +17,8 @@
         <li>Your template at <code><a href="{{ '/home/yohann/Documents/projet_symfony/entraide_dev/templates/post/index.html.twig'|file_link(0) }}">templates/post/index.html.twig</a></code></li>
     </ul>
 </div>
+{% for post in posts %}
+{{ post.title|u.truncate(3) }}
+{{ post.content }}
+{% endfor %}
 {% endblock %}

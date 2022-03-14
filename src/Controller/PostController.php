@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\PostRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 class PostController extends AbstractController
 {
@@ -13,6 +15,21 @@ class PostController extends AbstractController
     {
         return $this->render('post/index.html.twig', [
             'controller_name' => 'PostController',
+        ]);
+    }
+
+
+
+   #[Route('/post/{id}', name: 'app_test')]
+    public function show(int $id, PostRepository $postRepository): Response
+    {
+        $posts = $postRepository
+            ->findOrderBy();
+            
+        // ...
+        return $this->render('post/index.html.twig', [
+            'controller_name' => 'PostController',
+            'posts'=> $posts
         ]);
     }
 }

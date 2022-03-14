@@ -32,7 +32,7 @@ class PostRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
-
+    
     /**
      * @throws ORMException
      * @throws OptimisticLockException
@@ -43,6 +43,15 @@ class PostRepository extends ServiceEntityRepository
         if ($flush) {
             $this->_em->flush();
         }
+    }
+
+    public function findOrderBy($value): ?Post
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.date', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
     // /**
