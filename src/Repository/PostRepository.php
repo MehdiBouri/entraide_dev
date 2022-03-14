@@ -45,10 +45,10 @@ class PostRepository extends ServiceEntityRepository
         }
     }
 
-    public function findOrderBy($value): ?Post
+    public function findSearch($order = 'DESC')
     {
         return $this->createQueryBuilder('p')
-            ->orderBy('p.date', 'DESC')
+            ->orderBy('p.created_at', $order)
             ->getQuery()
             ->getResult()
         ;
