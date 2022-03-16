@@ -65,25 +65,10 @@ class IndexController extends AbstractController
         ]);
     }
 
-    // #[Route('/ajouter', name: 'app_ajouter')]
-    // public function addQuestion(Request $request, ObjectManager $manager)
-    // {   dump($request);
-    //     if($request->request->count() >0 ){
-    //         $post = new Post();
-    //         $post->setTitle($request->request->get('title'))
-    //              ->setContent($request->request->get('content'))
-    //              ->setStatus($request->request->get('status'))
-    //              ->setCreatedAt(new \DateTime());
-            
-    //         $manager->persist($post);
-    //         $manager->flush();
-    // }
+    
 
-    //     return $this->render('index/index.html.twig', [
-    //         'controller_name' => 'IndexController',
-    //         'posts'=> $posts
-    //     ]);
-    // }
+
+
     // #[Route('/{id}', name: 'showPost')]
     // public function show(int $id, PostRepository $postRepository): Response
     // {

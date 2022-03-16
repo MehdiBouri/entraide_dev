@@ -2,17 +2,24 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PostController extends AbstractController
 {
-    #[Route('/post', name: 'app_post')]
-    public function index(): Response
-    {
-        return $this->render('post/index.html.twig', [
-            'controller_name' => 'PostController',
-        ]);
+    #[Route('/post/{$id}', name: 'app_post', methods:['GET'])]
+    public function addQuestion(Request $request)
+    {   $id = $request->get('id');
+            return $this->render('post/index.html.twig', [
+                'controller_name' => 'PostController',
+            ]);
+        
+
+
+
     }
+   
 }
