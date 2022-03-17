@@ -32,7 +32,7 @@ class PostController extends AbstractController
 
         if($this->getUser() && $form->isSubmitted() && $form->isValid()) {
             $comment->setCreatedAt(new \DateTimeImmutable());
-            $comment->setStatus('open');
+            $comment->setStatus('Ouvert');
             $comment->setUser($this->getUser());
             $comment->setPost($post);
 
@@ -49,5 +49,19 @@ class PostController extends AbstractController
             'comments' => $comments,
             'formComment' => $form->createView()
         ]);
+    }
+
+
+
+    #[Route('/post/{id}/like', name: 'app_like', methods:['GET'])]
+    public function like(Comment $comment, CommentRepository $commentRepository, Request $request, EntityManagerInterface $manager)
+    {
+        //$comment = $commentRepository->findById($request->get('id'));
+
+        /*$manager->persist($like);
+        $manager->flush();
+        $commentRepository->like($request->get('id'));*/
+
+        return $this->redirectToRoute('app_post', ['id' => $comment->getPost()->getId()]);
     }
 }

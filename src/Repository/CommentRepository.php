@@ -32,6 +32,18 @@ class CommentRepository extends ServiceEntityRepository
         ;
     }
 
+
+    public function like($id)
+    {
+        return $this->_em->createQuery(
+            'INSERT INTO comment
+            JOIN p.category c
+            WHERE p.id = :id'
+        )
+        ->setParameter('id', $productId)
+        ->getOneOrNullResult();
+    }
+
     /**
      * @throws ORMException
      * @throws OptimisticLockException
