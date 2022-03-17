@@ -15,7 +15,7 @@
     <h1>{{ post.title }}</h1>
 
     <div class="list-group">
-        <div href="#" class="list-group-item list-group-item-action">
+        <div class="list-group-item">
             <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1"></h5>
             <small class="text-muted">{{ post.createdat|date("d/m/Y à H:i") }}</small>
@@ -23,6 +23,18 @@
             <p>{{ post.content }}</p>
         </div>
     </div>
+
+      {% for comment in comments %}
+    <div class="list-group">
+        <div class="list-group-item">
+            <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1"></h5>
+            <small class="text-muted">{{ comment.createdat|date("d/m/Y à H:i") }}</small>
+            </div>
+            <p>{{ comment.content }}</p>
+        </div>
+    </div>
+    {% endfor %}
 
     {% if app.user %}
         <div class="formulaire">
@@ -35,21 +47,11 @@
             {{ form_end(formComment) }}
         </div>
     {% else %}
-        <p class="text-center">Connectez-vous pour ajouter un commentaire</p>
-    {% endif %}
-
-
-
-    {% for comment in comments %}
-    <div class="list-group">
-        <div href="#" class="list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-between">
-            <small class="text-muted">{{ comment.createdat|date("d/m/Y à H:i") }}</small>
-            </div>
-            <p>{{ comment.content }}</p>
-        </div>
+    <div class="addFormulaire">
+        <h4 class="text-center">Connectez-vous pour ajouter un commentaire</h4>
+        <a href="{{ path('app_login') }}" class="btn btn-secondary">Connexion</a>
     </div>
-    {% endfor %}
+    {% endif %}
 {% endblock %}
 
 

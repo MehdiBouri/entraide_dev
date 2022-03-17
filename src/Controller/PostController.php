@@ -18,7 +18,6 @@ class PostController extends AbstractController
     #[Route('/post/{id}', name: 'app_post', methods:['GET', 'POST'])]
     public function post(Post $post, CommentRepository $commentRepository, Request $request, EntityManagerInterface $manager)
     {
-
         $comments = $commentRepository->findByPost($post->getId());
         $comment = new Comment();
 
