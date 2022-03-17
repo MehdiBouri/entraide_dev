@@ -23,6 +23,7 @@ class IndexController extends AbstractController
     
        
             $post = new Post();
+            $post -> setStatus('Ouvert');
             $form = $this->createFormBuilder($post)
                          ->add('title', TextType::class,[
                             'label'=>'Titre'
@@ -30,8 +31,10 @@ class IndexController extends AbstractController
                          ->add('content', TextareaType::class,[
                             'label'=>'Question',
                             'attr' =>['rows'=>5]
-                        ])
-                         ->add('status', ChoiceType::class, [
+                         ]);
+
+                        if ($this->isGranted('ROLE_ADMIN')) {
+                            $form->add('status', ChoiceType::class, [
                             'choices'  => [
                                 'Ouvert' => 'Ouvert',
                                 'Fermé' => 'Fermé',
@@ -39,17 +42,16 @@ class IndexController extends AbstractController
                                 ],
                             'placeholder'=>'Choisir un statut',
                             'label'=>'Statut'   
-                         ])
-                         ->getForm();
-
+                            ]);
+                        };
+                        $form = $form->getForm();
             $form->handleRequest($request);
 
             if($form->isSubmitted() && $form->isValid()){
-                // $user = new User;
-                // $user->setId(1);
+                $user = $this->getUser();
 
                 $post->setCreatedAt(new \DateTimeImmutable());
-                // $post->setUserId($user);
+                $post->setUser($user);
 
                 $manager->persist($post);
                 $manager->flush();
