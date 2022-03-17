@@ -53,11 +53,11 @@ class IndexController extends AbstractController
                 $post->setCreatedAt(new \DateTimeImmutable());
                 $post->setUser($user);
 
-                $manager->persist($post);
-                $manager->flush();
+            $manager->persist($post);
+            $manager->flush();
 
-                return $this->redirectToRoute('app_index');
-            }
+            return $this->redirectToRoute('app_index');
+        }
         
 
         return $this->render('index/index.html.twig', [

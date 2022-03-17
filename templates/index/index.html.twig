@@ -20,14 +20,13 @@
 
 {% for post in posts %}
 <div class="list-group">
-  <a href="{{ path('app_post', {'id':post.id}) }}" class="list-group-item list-group-item-action">
+  <a href="{{path('app_post', {'id': post.id})}}" class="list-group-item list-group-item-action">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">{{ post.title }}</h5>
       <small class="text-muted">{{ post.createdat|date("d/m/Y à H:i") }}</small>
     </div>
     <p>{{ post.content }}</p>
-    <small class="text-muted">{{ post.status }}</small>
-  </a>  
+  </a>
 </div>
 {% endfor %}
 
