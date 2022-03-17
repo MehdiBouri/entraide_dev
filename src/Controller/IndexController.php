@@ -18,44 +18,39 @@ class IndexController extends AbstractController
 {
     #[Route('/', name: 'app_index')]
     public function index(PostRepository $postRepository, Request $request, EntityManagerInterface $manager): Response
-    {   $posts = $postRepository
-            ->findSearch();
-    
-       
-            $post = new Post();
-            $form = $this->createFormBuilder($post)
-                         ->add('title', TextType::class,[
-                            'label'=>'Titre'
-                         ])
-                         ->add('content', TextareaType::class,[
-                            'label'=>'Question',
-                            'attr' =>['rows'=>5]
-                        ])
-                         ->add('status', ChoiceType::class, [
-                            'choices'  => [
-                                'Ouvert' => 'Ouvert',
-                                'Fermé' => 'Fermé',
-                                'Modéré' => 'Modéré'       
-                                ],
-                            'placeholder'=>'Choisir un statut',
-                            'label'=>'Statut'   
-                         ])
-                         ->getForm();
+    {
+        $posts = $postRepository->findSearch();
+        
+        $post = new Post();
+        $form = $this->createFormBuilder($post)
+                ->add('title', TextType::class,[
+                'label'=>'Titre'
+                ])
+                ->add('content', TextareaType::class,[
+                'label'=>'Question',
+                'attr' =>['rows' => 5]
+                ])
+                ->add('status', ChoiceType::class, [
+                'choices' => [
+                    'Ouvert' => 'Ouvert',
+                    'Fermé' => 'Fermé',
+                    'Modéré' => 'Modéré'       
+                    ],
+                'placeholder' => 'Choisir un statut',
+                'label' => 'Statut'   
+                ])
+                ->getForm()
+                ->handleRequest($request);
 
-            $form->handleRequest($request);
 
-            if($form->isSubmitted() && $form->isValid()){
-                // $user = new User;
-                // $user->setId(1);
+        if($form->isSubmitted() && $form->isValid()) {
+            $post->setCreatedAt(new \DateTimeImmutable());
 
-                $post->setCreatedAt(new \DateTimeImmutable());
-                // $post->setUserId($user);
+            $manager->persist($post);
+            $manager->flush();
 
-                $manager->persist($post);
-                $manager->flush();
-
-                return $this->redirectToRoute('app_index');
-            }
+            return $this->redirectToRoute('app_index');
+        }
         
 
         return $this->render('index/index.html.twig', [
