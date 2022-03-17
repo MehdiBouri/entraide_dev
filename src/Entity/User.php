@@ -30,7 +30,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $username;
 
     public function __construct()
-    {
+    {       $this->setRoles(['ROLE_USER']);
 
     }
 

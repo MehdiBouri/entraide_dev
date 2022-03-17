@@ -5,7 +5,7 @@ h1{
 
 .list-group{
     width: 50%;
-    margin: 3% auto;
+    margin: 2% auto;
 }
 
 p{
@@ -18,10 +18,20 @@ p{
 
 .formulaire{
     width: 50%; 
-    margin: 10% auto;
+    margin: 5% auto;
 }
 
 h2{
     text-align: center;
     margin-bottom: 5%;
+}
+
+.addFormulaire{
+    width: 50%; 
+    margin: 5% auto;
+    text-align: center;
+}
+
+.addFormulaire a{
+    margin-top: 1%;
 }
