@@ -6,7 +6,7 @@ use App\Repository\PostRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 class PostController extends AbstractController
 {
@@ -32,4 +32,9 @@ class PostController extends AbstractController
             'posts'=> $posts
         ]);
     }
+
 }
+
+
+
+   
