@@ -54,32 +54,14 @@ class PostRepository extends ServiceEntityRepository
         ;
     }
 
-    // /**
-    //  * @return Post[] Returns an array of Post objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+    public function search($value)
+    {   //SELECT * FROM post as l WHERE l.titre LIKE "%xxx%" ORDER BY l.titre, l.auteur
+        return $this->createQueryBuilder('p')//le paramètre l représente la table post (comme un alias dans une requête SQL)
+            ->where('p.title LIKE :val')
+            ->setParameter('val', "%$value%")
+            ->orderBy('p.title', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Post
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

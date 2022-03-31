@@ -1,30 +1,57 @@
 {% extends 'base.html.twig' %}
 
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('index') }}
-            z
-           
+{% block stylesheets %}
+    {{parent()}}
+    {{ encore_entry_link_tags('index') }}
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    {{ encore_entry_script_tags('index') }}
+{% endblock %}
 
-        {% endblock %}
-        {% block javascripts %}
-            {{ encore_entry_script_tags('index') }}
-        {% endblock %}
-{% block title %}Hello PostController!{% endblock %}
+{% block title %}{{ post.title }}{% endblock %}
 
 {% block body %}
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>{{ post.title }}</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/yohann/Documents/projet_symfony/entraide_dev/src/Controller/PostController.php'|file_link(0) }}">src/Controller/PostController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/yohann/Documents/projet_symfony/entraide_dev/templates/post/index.html.twig'|file_link(0) }}">templates/post/index.html.twig</a></code></li>
-    </ul>
-</div>
-{% for post in posts %}
-{{ post.title|u.truncate(3) }}
-{{ post.content }}
-{% endfor %}
+    <div class="list-group">
+        <div class="list-group-item">
+            <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1"></h5>
+            <small class="text-muted">{{ post.createdat|date("d/m/Y à H:i") }}</small>
+            </div>
+            <p>{{ post.content }}</p>
+        </div>
+    </div>
+
+      {% for comment in comments %}
+    <div class="list-group">
+        <div class="list-group-item">
+            <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1"></h5>
+            <small class="text-muted">{{ comment.createdat|date("d/m/Y à H:i") }}</small>
+            </div>
+            <p>{{ comment.content }}</p>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% if app.user %}
+        <div class="formulaire">
+            <h2>Commentaires</h2>
+            {{ form_start(formComment) }}
+                {{ form_row(formComment.content) }}
+                <div class="col-12">
+                    <button type="submit" class="btn btn-secondary">Envoyer</button>
+                </div>
+            {{ form_end(formComment) }}
+        </div>
+    {% else %}
+    <div class="addFormulaire">
+        <h4 class="text-center">Connectez-vous pour ajouter un commentaire</h4>
+        <a href="{{ path('app_login') }}" class="btn btn-secondary">Connexion</a>
+    </div>
+    {% endif %}
 {% endblock %}
 
 
